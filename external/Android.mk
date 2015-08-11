@@ -17,9 +17,9 @@ sqlcipher/sqlite3.c:
 	make -C sqlcipher sqlite3.c
 
 copy-libs-hack: build-local-hack
-	install -p -m644 libs/x86_64/*.so ../obj/local/x86_64/
+	install -p -m644 libs/armeabi/*.so ../obj/local/armeabi/
 
-project_ldflags:= -Llibs/$(TARGET_ARCH_ABI)/ -Landroid-libs/$(TARGET_ARCH_ABI)/
+project_ldflags:= -Llibs/$(TARGET_ARCH_ABI)/ -Landroid-libs/$(TARGET_ARCH_ABI)/ -fuse-ld=bfd
 
 #------------------------------------------------------------------------------#
 # libsqlite3
@@ -94,6 +94,7 @@ LOCAL_STATIC_LIBRARIES := libsqlcipher libicui18n libicuuc static-libcrypto
 LOCAL_CFLAGS += $(android_sqlite_cflags) $(sqlite_cflags) \
 		-DOS_PATH_SEPARATOR="'/'" -DHAVE_SYS_UIO_H
 
+LOCAL_LDFLAGS += -fuse-ld=bfd
 LOCAL_LDFLAGS += -L${LOCAL_PATH}/android-libs/$(TARGET_ARCH_ABI)/ -L$(LOCAL_PATH)/libs/$(TARGET_ARCH_ABI)/
 LOCAL_LDLIBS := -llog -lutils -lcutils
 LOCAL_MODULE := libsqlcipher_android

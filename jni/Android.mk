@@ -57,8 +57,9 @@ LOCAL_LDLIBS += -ldl -llog
 LOCAL_LDLIBS += -lnativehelper -landroid_runtime -lutils -lbinder
 # these are build in the ../external section
 
+LOCAL_LDFLAGS += -fuse-ld=bfd
 LOCAL_LDLIBS  += -lsqlcipher_android
-LOCAL_LDFLAGS += -L../obj/local/$(TARGET_ARCH_ABI)
+LOCAL_LDFLAGS += -L../obj/local/$(TARGET_ARCH_ABI) -fuse-ld=bfd
 LOCAL_LDLIBS  += -licui18n -licuuc
 
 ifeq ($(WITH_MALLOC_LEAK_CHECK),true)
